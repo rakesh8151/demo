@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../configs/auth.config");
 const constants = require("../utils/constants");
-const { userType } = require("../utils/constants");
+
 
 
 verifyToken = (req, res, next) => {
@@ -30,10 +30,11 @@ verifyToken = (req, res, next) => {
     });
 };
 
-isAdmin = async(req, res, next) => {
+isAdminOrRecruiter = async(req, res, next) => {
 
-    const user = await User.findOne({ userId: req.body.id });
-    if (user && user.userType == constants.userType.admin) {
+    const user = await User.findOne({ userId: req.userId });
+
+    if (user && (user.userType == constants.userType.admin || user.userType == constants.userType.recruiter)) {
         next();
     } else {
         return res.status(400).send({
@@ -44,6 +45,6 @@ isAdmin = async(req, res, next) => {
 };
 const authJwt = {
     verifyToken: verifyToken,
-    isAdmin: isAdmin
+    isAdminOrRecruiter: isAdminOrRecruiter
 }
 module.exports = authJwt;

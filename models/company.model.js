@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const constants = require("../../Revel_Practice_Q1/jobhunters/utils/constants");
+const constants = require("../utils/constants");
 const companySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -24,9 +24,9 @@ const companySchema = new mongoose.Schema({
     },
     verified: {
         type: String,
-        required: constants.verificationStatus.notVerified
+        required: constants.verificationSatus.notVerified
     },
-    jobList: {
+    jobPost: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Job"
     }
