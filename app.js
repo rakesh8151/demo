@@ -5,14 +5,13 @@ const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const User = require("./models/user.model");
 const bcrypt = require("bcryptjs");
-const constant = require("./models/utils/constants");
-const constants = require("./models/utils/constants");
+const constants = require("./utils/constants");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require("./routes/auth.routes")(app);
+require("./routes")(app);
 
 /**
  * Setup the mongodb connection and create on ADMIN user
